@@ -573,17 +573,17 @@ suite 'Classes', ->
     #  maya = new Hive.Bee 'Maya'
     #  ok maya.name is 'Maya'
 
-    test.skip 'calling super and passing along all arguments', -> # Currently syntax error.
-    #
-    #  class Parent
-    #    method: (args...) -> @args = args
-    #
-    #  class Child extends Parent
-    #    method: -> super
-    #
-    #  c = new Child
-    #  c.method 1, 2, 3, 4
-    #  ok c.args.join(' ') is '1 2 3 4'
+    test 'calling super and passing along all arguments', ->
+
+      class Parent
+        method: (args...) -> @args = args
+
+      class Child extends Parent
+        method: -> super
+
+      c = new Child
+      c.method 1, 2, 3, 4
+      ok c.args.join(' ') is '1 2 3 4'
 
     test.skip '`class extends this`', -> # Currently syntax error.
     #
@@ -607,14 +607,14 @@ suite 'Classes', ->
         constructor: ->
       eq nonce, B::prop
 
-    test.skip 'jashkenas/coffee-script#1380: `super` with reserved names', -> # Currently syntax error.
-    #  class C
-    #    do: -> super
-    #  ok C::do
-    #
-    #  class B
-    #    0: -> super
-    #  ok B::[0]
+    test 'jashkenas/coffee-script#1380: `super` with reserved names', ->
+     class C
+       do: -> super
+     ok C::do
+
+     class B
+       0: -> super
+     ok B::[0]
 
     test 'jashkenas/coffee-script#1482: classes can extend expressions', ->
       id = (x) -> x
